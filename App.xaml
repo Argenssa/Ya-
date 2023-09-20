@@ -1,0 +1,17 @@
+﻿<Application x:Class="Ya_.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Ya_"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./STYLES/Page.xaml"/>
+                <ResourceDictionary Source="./STYLES/Image.xaml"/>
+                <ResourceDictionary Source="./STYLES/Button.xaml"/>
+                <ResourceDictionary Source="./STYLES/Text.xaml"/>
+                <ResourceDictionary Source="./UTILITIES/DataTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

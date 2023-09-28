@@ -11,13 +11,7 @@
         <view:Songs />
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:AutorizationVM}">
-        <view:Autorization />
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type vm:RegistrationVM}">
-        <view:Registration />
-    </DataTemplate>
+ 
 
 
 </ResourceDictionary>

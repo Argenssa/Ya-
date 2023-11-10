@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ya_.MODEL
+namespace Ya_.Classes_for_Bd
 {
-    public class PageModel
+    internal class Playlist
     {
-      
+        public int Id { get; set; }
+        public string Name { get; set; }
+
     }
 }

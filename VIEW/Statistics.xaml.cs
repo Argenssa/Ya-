@@ -12,30 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Ya_.VIEW;
 
-namespace Ya_
+namespace Ya_.VIEW
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для Statistics.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Statistics : UserControl
     {
-
-        public static int User_Id
-        { get; private set; }
-        public MainWindow(int id)
+        public Statistics()
         {
             InitializeComponent();
-            User_Id = id;
-            CloseApp.Click += CloseApp_Click;
-        }
-        
-
-
-        private void CloseApp_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

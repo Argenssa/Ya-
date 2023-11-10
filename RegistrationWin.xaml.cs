@@ -96,7 +96,7 @@ namespace Ya_
                     }
                     conn.Close();
                 }
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new MainWindow(id);
                 mainWindow.Show();
                 this.Close();
             }

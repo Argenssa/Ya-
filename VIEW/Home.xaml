@@ -1,14 +1,64 @@
 ﻿<UserControl x:Class="Ya_.VIEW.Home"
+            
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ya_.VIEW"
+             
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1200" Style="{StaticResource Page_Style}">
-    <Grid>
-        <Border CornerRadius="0 20 20 0">
+             d:DesignHeight="700" d:DesignWidth="936" Style="{StaticResource Page_Style}">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="Transparent" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        </Border>
+                <!-- Недавно прослушанные треки -->
+                <TextBlock Grid.Row="0" Text="Недавно прослушанные треки" FontWeight="Bold" />
+
+                <ListBox Grid.Row="1" Background="Transparent">
+                    <!-- Здесь можно привязать данные о недавно прослушанных треках -->
+                </ListBox>
+
+                <!-- Рекомендации в виде плейлистов -->
+                <TextBlock Grid.Row="2" Text="Рекомендуем к прослушиванию" FontWeight="Bold" />
+
+                <ListBox Grid.Row="3" MaxHeight="200" Background="Transparent">
+                    <!-- Здесь можно привязать данные о рекомендуемых плейлистах -->
+                </ListBox>
+
+                <!-- Все песни -->
+                <TextBlock Grid.Row="4" Text="Все песни" FontWeight="Bold" />
+
+                <StackPanel Grid.Row="5" Grid.Column="1" Margin="0 50 0 0">
+                    <ScrollViewer MaxHeight="735" VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
+                        <Grid>
+                            <WrapPanel Name="Tracks">
+
+                            </WrapPanel>
+                           
+                        </Grid>
+                    </ScrollViewer>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

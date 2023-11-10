@@ -22,6 +22,12 @@ namespace Ya_
         public AdminPage()
         {
             InitializeComponent();
+            CloseApp.Click += CloseApp_Click;
+        }
+
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

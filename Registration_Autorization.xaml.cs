@@ -36,11 +36,11 @@ namespace Ya_
         }
         private void openRegWin(object sender, RoutedEventArgs e)
         {
-            RegistationWin registationWin = new RegistationWin();
+            RegistationWin registationWin = new();
             registationWin.Show();
             this.Close();
         }
-        private void ValidateEmailTextBlock(TextBox textBlock)
+        private static void ValidateEmailTextBlock(TextBox textBlock)
         {
             string email = textBlock.Text.Trim();
             if (!string.IsNullOrEmpty(email))
@@ -66,80 +66,77 @@ namespace Ya_
             string password = txtPassword.Password;
 
 
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            using NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+            NpgsqlCommand iQuery = new("Select * from public.\"USERS\" ", connection)
             {
-                connection.Open();
-                NpgsqlCommand iQuery = new NpgsqlCommand("Select * from public.\"USERS\" ", connection)
+                Connection = connection
+            };
+            NpgsqlDataAdapter iAdapter = new(iQuery);
+
+            DataSet iDataSet = new();
+            iAdapter.Fill(iDataSet, "USERS");
+
+            int lstCount = iDataSet.Tables["USERS"].Rows.Count;//lstCount holds the total count of the list from database
+
+            int i = 0;//used as counter
+            List<Users> items = new List<Users>();
+            while (lstCount > i)
+            {
+
+                items.Add(new Users()
                 {
-                    Connection = connection
-                };
-                NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(iQuery);
 
-                DataSet iDataSet = new DataSet();
-                iAdapter.Fill(iDataSet, "USERS");
+                    Id = Convert.ToInt32(iDataSet.Tables["USERS"].Rows[i]["Id"]),
+                    Role_id = Convert.ToInt32(iDataSet.Tables["USERS"].Rows[i]["ROLE_ID"]),
+                    Email = iDataSet.Tables["USERS"].Rows[i]["EMAIL"].ToString(),
+                    Password = (byte[])iDataSet.Tables["USERS"].Rows[i]["PASSWORD"],
 
-                int lstCount = iDataSet.Tables["USERS"].Rows.Count;//lstCount holds the total count of the list from database
+                });
 
-                int i = 0;//used as counter
-                List<Users> items = new List<Users>();
-                while (lstCount > i)
+
+
+                i++;
+            }
+            int count = 0;
+
+            for (int j = 0; j < items.Count; j++)
+            {
+                byte[] decryptedPassword = ProtectedData.Unprotect(items[j].Password, null, DataProtectionScope.CurrentUser);
+                string decryptedPasswordString = Encoding.Unicode.GetString(decryptedPassword);
+                if (email == items[j].Email && password == decryptedPasswordString)
                 {
-
-                    items.Add(new Users()
+                    MainWindow mw = new MainWindow(items[j].Id);
+                    AdminPage adminPage = new AdminPage();
+                    if (items[j].Role_id != 1)
                     {
-
-                        Id = Convert.ToInt32(iDataSet.Tables["USERS"].Rows[i]["Id"]),
-                        Role_id = Convert.ToInt32(iDataSet.Tables["USERS"].Rows[i]["ROLE_ID"]),
-                        Email = iDataSet.Tables["USERS"].Rows[i]["EMAIL"].ToString(),
-                        Password = (byte[])iDataSet.Tables["USERS"].Rows[i]["PASSWORD"],
-
-                    });
-
-
-
-                    i++;
-                }
-                int count = 0;
-
-                for (int j = 0; j < items.Count; j++)
-                {
-                    byte[] decryptedPassword = ProtectedData.Unprotect(items[j].Password, null, DataProtectionScope.CurrentUser);
-                    string decryptedPasswordString = Encoding.Unicode.GetString(decryptedPassword);
-                    if (email == items[j].Email && password == decryptedPasswordString)
-                    {
-                        MainWindow mw = new MainWindow();
-                        AdminPage adminPage = new AdminPage();
-                        if (items[j].Role_id != 1)
-                        {
-                            mw.Show();
-                            this.Close();
-                            break;
-                        }
-                        else
-                        {
-                            adminPage.Show();
-                            this.Close();
-
-                            break;
-                        }
-
+                        mw.Show();
+                        this.Close();
+                        break;
                     }
                     else
                     {
-                        count++;
+                        adminPage.Show();
+                        this.Close();
+
+                        break;
                     }
 
                 }
-                if (count == items.Count)
+                else
                 {
-                    MessageBox.Show("Неверный логин или пороль");
+                    count++;
                 }
 
-
-
-                connection.Close();
-
             }
+            if (count == items.Count)
+            {
+                MessageBox.Show("Неверный логин или пороль");
+            }
+
+
+
+            connection.Close();
         }
 
         private void clear(object sender, RoutedEventArgs e)

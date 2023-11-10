@@ -22,21 +22,23 @@ namespace Ya_.VIEWMODEL
 
         public ICommand HomeCommand { get; set; }
         public ICommand SongCommand { get; set; }
-        public ICommand ProductsCommand { get; set; }
-        public ICommand OrdersCommand { get; set; }
-        public ICommand TransactionsCommand { get; set; }
-        public ICommand ShipmentsCommand { get; set; }
-        public ICommand SettingsCommand { get; set; }
+        public ICommand ProfileCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
+        
+       
 
         private void Home(object obj) => CurrentView = new HomeVM();
         private void Songs(object obj) => CurrentView = new SongsVM();
-
-
+        private void Profile(object obj) => CurrentView = new ProfileVM();
+        private void Search(object obj) => CurrentView = new SearchVM();
+        
         public NavigationVM()
         {
             HomeCommand = new RelayCommand(Home);
             SongCommand = new RelayCommand(Songs);
-
+            ProfileCommand = new RelayCommand(Profile);
+            SearchCommand = new RelayCommand(Search);
+        
             // Startup Page
             CurrentView = new HomeVM();
         }

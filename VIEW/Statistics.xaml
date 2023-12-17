@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ya_.VIEW"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="9322">
+             d:DesignHeight="450" d:DesignWidth="932">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
@@ -31,37 +31,34 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+          
         </Grid.RowDefinitions>
 
         <!-- Общая статистика -->
         <TextBlock Text="Общая статистика" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="1" Text="Количество зарегистрированных пользователей:" />
-        <TextBlock Grid.Row="2" Text="Количество активных пользователей за период:" />
-        <TextBlock Grid.Row="3" Text="Общее количество прослушиваний за период:" />
+            <TextBlock Grid.Row="1" Text="Количество зарегистрированных пользователей:" />
+            <TextBlock Grid.Row="2" Text="Общее количество прослушиваний за период:" />
 
         <!-- Популярность треков -->
-        <TextBlock Grid.Row="4" Text="Популярность треков" FontWeight="Bold" />
+        <TextBlock Grid.Row="3" Text="Популярность треков" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="5" Text="Топ-проигрываемых треков за период:" />
-        <TextBlock Grid.Row="6" Text="Топ-лайкнутых треков за период:" />
-        <TextBlock Grid.Row="7" Text="Топ-треков по количеству добавлений в плейлисты:" />
+        <TextBlock Grid.Row="4" Text="Топ-проигрываемых треков за период:" />
+        <TextBlock Grid.Row="5" Text="Топ-лайкнутых треков за период:" />
+        <TextBlock Grid.Row="6" Text="Топ-треков по количеству добавлений в плейлисты:" />
 
         <!-- Активность пользователей -->
-        <TextBlock Grid.Row="8" Text="Активность пользователей" FontWeight="Bold" />
+        <TextBlock Grid.Row="7" Text="Активность пользователей" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="9" Text="Топ-активных пользователей по прослушиваниям:" />
-        <TextBlock Grid.Row="10" Text="Топ-активных пользователей по лайкам и комментариям:" />
-        <TextBlock Grid.Row="11" Text="Распределение активности пользователей по времени суток:" />
+        <TextBlock Grid.Row="8" Text="Топ-активных пользователей по прослушиваниям:" />
+        <TextBlock Grid.Row="9" Text="Топ-активных пользователей по лайкам и комментариям:" />
+     
 
         <!-- Содержимое -->
-        <TextBlock Grid.Row="12" Text="Содержимое" FontWeight="Bold" />
+        <TextBlock Grid.Row="10" Text="Содержимое" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="13" Text="Общее количество треков:" />
-        <TextBlock Grid.Row="14" Text="Количество треков по жанрам или артистам:" />
-        <TextBlock Grid.Row="15" Text="Новые треки, добавленные за последний период:" />
+        <TextBlock Grid.Row="11" Text="Общее количество треков:" />
+       
         </Grid>
     </Grid>
 </UserControl>

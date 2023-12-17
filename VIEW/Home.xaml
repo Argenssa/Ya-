@@ -27,15 +27,21 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- Недавно прослушанные треки -->
-                <TextBlock Grid.Row="0" Text="Недавно прослушанные треки" FontWeight="Bold" />
+                <TextBlock  Text="Недавно прослушанные треки" FontWeight="Bold" />
+                <StackPanel Grid.Row="1" MaxWidth="936">
 
-                <ListBox Grid.Row="1" Background="Transparent">
-                    <!-- Здесь можно привязать данные о недавно прослушанных треках -->
-                </ListBox>
+                  
+                        <StackPanel Name="Recent_Tracks" Orientation="Horizontal" >
+                            <!-- Content goes here -->
+                        </StackPanel>
+               
+                </StackPanel>
+             
 
                 <!-- Рекомендации в виде плейлистов -->
                 <TextBlock Grid.Row="2" Text="Рекомендуем к прослушиванию" FontWeight="Bold" />

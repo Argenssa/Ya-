@@ -86,6 +86,7 @@ namespace Ya_.VIEW
                         cmd.ExecuteNonQuery();
                     }
                     conn.Close();
+                    MessageBox.Show("Песня добавлена");
                 }
             }
             catch (Exception ex)

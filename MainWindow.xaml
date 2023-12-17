@@ -26,28 +26,28 @@
 
                     <Memu:Btn Style="{StaticResource BtnStyle}" Command="{Binding HomeCommand}" IsChecked="True">
                         <Grid>
-                            <Image Source="/Images/icons8-home-50.png" Style="{StaticResource Image_Style}" />
+                            <Image Source="C:\\coursProj4sem\\Ya!\\Icons\\icons8-home-50.png" Style="{StaticResource Image_Style}" />
                             <TextBlock Text="Home" Style="{StaticResource Text_Style}"/>
                         </Grid>
                        
                     </Memu:Btn>
                     <Memu:Btn Style="{StaticResource BtnStyle}" Command="{Binding SearchCommand}">
                         <Grid>
-                            <Image Source="/IMG/icons8-search-50.png" Style="{StaticResource Image_Style}" />
+                            <Image Source="C:\\coursProj4sem\\Ya!\\Icons\\icons8-search-50.png" Style="{StaticResource Image_Style}" />
                             <TextBlock Text="Search" Style="{StaticResource Text_Style}"/>
                         </Grid>
                     </Memu:Btn>
                     <Memu:Btn Style="{StaticResource BtnStyle}" Command="{Binding SongCommand}" >
                         <Grid>
-                            <Image Source="/Images/icons8-music-heart-50.png" Style="{StaticResource Image_Style}" />
+                            <Image Source="C:\\coursProj4sem\\Ya!\\Icons\\icons8-music-heart-50.png" Style="{StaticResource Image_Style}" />
                             <TextBlock Text="My music" Style="{StaticResource Text_Style}"/>
                         </Grid>
                     </Memu:Btn>
 
                     <Memu:Btn Style="{StaticResource BtnStyle}" Command="{Binding ProfileCommand}" >
                         <Grid>
-                            <Image Source="/Images/icons8-admin-settings-male-50.png" Style="{StaticResource Image_Style}" />
-                            <TextBlock Text="Profile" Style="{StaticResource Text_Style}"/>
+                            <Image Source="C:\\coursProj4sem\\Ya!\\Icons\\icons8-music-folder-50.png" Style="{StaticResource Image_Style}" />
+                            <TextBlock Text="Playlists" Style="{StaticResource Text_Style}"/>
                         </Grid>
                     </Memu:Btn>
                 </StackPanel>

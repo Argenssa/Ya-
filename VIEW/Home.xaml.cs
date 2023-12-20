@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -37,13 +38,14 @@ namespace Ya_.VIEW
           
             LoadSongs(page_number);
             LoadRecentSongs(user_id);
-           
+            LoadComplitations();
             InitializeComponent();
         }
-        readonly List<Songss> songs = new();
+       
         readonly List<Songss> Recent_songs = new();
         readonly List<Playlist> complitations = new();
         List<int> likedTracks = new List<int>();
+        readonly List<Songss> songs = new();
 
         private void LoadSongs(int pageNumber)
         {
@@ -125,6 +127,8 @@ namespace Ya_.VIEW
                 LoadSongs(page_number);
                 UpdateTracks();
                ShowRecentTracks();
+                LoadComplitations();
+                ShowComplitations();
             }
             else if (e.VerticalOffset == 0)
             {
@@ -134,6 +138,8 @@ namespace Ya_.VIEW
                     LoadSongs(page_number);
                     UpdateTracks();
                     ShowRecentTracks();
+                    LoadComplitations();
+                    ShowComplitations() ;
                 }
             }
         }
@@ -264,7 +270,7 @@ namespace Ya_.VIEW
                         Height = 60,
                         BorderBrush = new SolidColorBrush(Colors.White),
                         BorderThickness = new Thickness(1, 1, 1, 1),
-                        Margin = new Thickness(0, 1, 0, 1)
+                        Margin = new Thickness(40, 1, 0, 1)
                     };
                     Grid gr1 = new Grid();
                     ColumnDefinition c1 = new ColumnDefinition
@@ -418,7 +424,10 @@ namespace Ya_.VIEW
             page_number++;
         }
 
-
+        private void LoadComplitation()
+        {
+            Complitatoins.Children.Clear();
+        }
         static void AddToPlaylist(int user_id, int playliist_id, int track_id)
         {
             string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
@@ -435,8 +444,6 @@ namespace Ya_.VIEW
             conn.Close();
         }
         int tagg;
-
-        
 
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -498,6 +505,18 @@ namespace Ya_.VIEW
                             using (NpgsqlConnection conn = new NpgsqlConnection(connect))
                             {
                                 conn.Open();
+                                using (NpgsqlCommand command = new NpgsqlCommand("SELECT public.IncrementClickCount(@trackId)", conn))
+                                {
+                                    // Добавление параметра trackId
+                                    command.Parameters.AddWithValue("trackId", index); // Замените 123 на конкретное значение track_id
+
+                                    // Выполнение команды
+                                    command.ExecuteNonQuery();
+                                }
+                            }
+                                using (NpgsqlConnection conn = new NpgsqlConnection(connect))
+                            {
+                                conn.Open();
                                 using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT public.\"add_recent_song\"(@track_id,@song_id)", conn))
                                 {
                                     cmd.Parameters.Add("@track_id", NpgsqlTypes.NpgsqlDbType.Integer).Value = index;
@@ -534,7 +553,7 @@ namespace Ya_.VIEW
 
             // Разделяем tag на id и index
             var tagParts = tag.Split('_');
-            int id = int.Parse(tagParts[0]);
+            tagg = int.Parse(tagParts[0]);
 
 
             ((FrameworkElement)sender).ContextMenu.IsOpen = true;
@@ -579,7 +598,21 @@ namespace Ya_.VIEW
                         {
                             mediaPlayer.Open(new Uri(songs[i].SongWay));
                             mediaPlayer.Play();
-                       
+                            string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
+                            NpgsqlConnection iConnect = new NpgsqlConnection(connect);
+                            iConnect.Open();
+                            using (NpgsqlConnection conn = new NpgsqlConnection(connect))
+                            {
+                                conn.Open();
+                                using (NpgsqlCommand command = new NpgsqlCommand("SELECT public.IncrementClickCount(@trackId)", conn))
+                                {
+                                    // Добавление параметра trackId
+                                    command.Parameters.AddWithValue("trackId", songs[i].Id); // Замените 123 на конкретное значение track_id
+
+                                    // Выполнение команды
+                                    command.ExecuteNonQuery();
+                                }
+                            }
                             img.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png", UriKind.Relative)));
 
                             break;
@@ -650,7 +683,7 @@ namespace Ya_.VIEW
                 MenuItem menuItem = new MenuItem
                 {
                     Header = complitations[i].Name,
-                    Tag = complitations[i].Id + "_"+ i
+                    Tag = complitations[i].Id
                     };
                     menuItem.Click += MenuItem_Click;
                     list.Add(menuItem);
@@ -815,8 +848,145 @@ namespace Ya_.VIEW
             grid.Children.Add(scrollViewer);
             Recent_Tracks.Children.Add(grid);
         }
-        
+
+
+        List<Complitation> complitationss = new List<Complitation>();
+
+        private void LoadComplitations()
+        {
+           
+            complitationss.Clear();
+            string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
+
+            NpgsqlConnection conn = new NpgsqlConnection(connect);
+            conn.Open();
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(" SELECT * FROM public.\"list_of_complitations\"()", conn))
+            {
+
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    Complitation s = new Complitation
+                    {
+                        Id = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        kol = reader.GetInt32(2),
+
+                    };
+
+
+                    complitationss.Add(s);
+                }
+            }
         }
+
+      private void  ShowComplitations() {
+            Complitatoins.Children.Clear();
+            ScrollViewer scrollViewer = new ScrollViewer
+            {
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
+                Width = 930,
+                MaxHeight = 250
+            };
+            UniformGrid stackPanel = new UniformGrid
+            {
+                Rows = 1,
+                MinWidth = 930
+
+            };
+
+            Grid gridd = new Grid
+            {
+                MinWidth = 930
+            };
+
+            for (int i = 0; i < complitationss.Count; i++)
+                {
+
+                Border br = new Border();
+                br.Width = 220;
+                br.Height = 220;
+
+                // Создание контрастного градиента
+                Random random = new Random();
+                Color startColor = Color.FromRgb((byte)random.Next(200, 256), (byte)random.Next(200, 256), (byte)random.Next(200, 256)); // светлый цвет
+                Color middleColor = Color.FromRgb((byte)random.Next(100, 200), (byte)random.Next(200, 256), (byte)random.Next(200, 256)); // голубой цвет
+                Color endColor = Color.FromRgb((byte)random.Next(200, 256), (byte)random.Next(200, 256), (byte)random.Next(200, 256)); // светлый цвет
+
+                LinearGradientBrush gradientBrush = new LinearGradientBrush();
+                gradientBrush.GradientStops.Add(new GradientStop(startColor, 0));
+                gradientBrush.GradientStops.Add(new GradientStop(middleColor, 0.5)); // добавляем промежуточный цвет
+                gradientBrush.GradientStops.Add(new GradientStop(endColor, 1));
+
+                br.Background = gradientBrush;
+
+
+
+
+
+
+                br.Margin = new Thickness(5, 0, 5, 0);
+                    Grid grid = new Grid();
+                    br.Child = grid;
+                    RowDefinition c1 = new RowDefinition
+                    {
+                        Height = new GridLength(180)
+                    };
+                    RowDefinition c2 = new RowDefinition
+                    {
+                        Height = new GridLength(40)
+                    };
+                    grid.RowDefinitions.Add(c1);
+                    grid.RowDefinitions.Add(c2);
+                    Rectangle rect = new Rectangle
+                    {
+                        Width = 200,
+                        Height = 200,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                    };
+
+                    //*********Image Ellipse**************//
+                  
+               
+                    TextBlock t1 = new TextBlock();
+                    t1.Text = complitationss[i].Name;
+                    t1.Margin = new Thickness(0, 5, 0, 0);
+                    t1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#212529"));
+                    t1.FontSize = 18;
+                    t1.HorizontalAlignment = HorizontalAlignment.Center;
+                    t1.VerticalAlignment = VerticalAlignment.Center;
+                    grid.Children.Add(t1);
+           
+                    br.Tag = complitationss[i].Id+"_tag";
+                    br.PreviewMouseLeftButtonDown += Br_PreviewMouseLeftButtonDown;
+                    Grid.SetRow(t1, 1);
+                stackPanel.Children.Add(br);
+            }
+            scrollViewer.Content = stackPanel;
+            gridd.Children.Add(scrollViewer);
+            Complitatoins.Children.Add(gridd);
+        }
+         
+        
+
+
+    private void Br_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Border border = (Border)sender;
+            string tag =  (string)border.Tag;
+            var tagParts = tag.Split('_');
+            int id = int.Parse(tagParts[0]);
+            ModalComplitations modal = new ModalComplitations(id);
+            modal.ShowDialog();
+        }
+
+    }
 
     }
 

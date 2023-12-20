@@ -6,7 +6,7 @@
                xmlns:vm="clr-namespace:Ya_.VIEWMODEL"
         xmlns:Memu="clr-namespace:Ya_.UTILITIES"
         mc:Ignorable="d"
-        Title="MainWindow" AllowsTransparency="True" Height="700" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+        Title="MainWindow" AllowsTransparency="True" Height="800" Width="1300" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
     <Window.DataContext>
         <vm:NavigationVM/>
     </Window.DataContext>

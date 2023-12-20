@@ -1,8 +1,6 @@
-﻿using Microsoft.Win32;
-using Npgsql;
+﻿using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,29 +11,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Ya_.VIEW
+namespace Ya_
 {
     /// <summary>
-    /// Логика взаимодействия для ComplitationManager.xaml
+    /// Логика взаимодействия для AddPlaylist.xaml
     /// </summary>
-    public partial class ComplitationManager : UserControl
+    public partial class AddPlaylist : Window
     {
-        public ComplitationManager()
+        int user_id = MainWindow.User_Id;
+        public AddPlaylist()
         {
             InitializeComponent();
         }
-      
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string title = TitleTextBox.Text;
-                string genre = GenreTextBox.Text;
-                int kol = Convert.ToInt32(KolTextBox.Text);
 
+                string name = IdTextBox.Text;
+                if (name == string.Empty)
+                {
+                    throw new Exception(message: "Введите название");
+                }
 
                 string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
                 NpgsqlConnection iConnect = new NpgsqlConnection(connect);
@@ -43,19 +42,22 @@ namespace Ya_.VIEW
                 using (NpgsqlConnection conn = new NpgsqlConnection(connect))
                 {
                     conn.Open();
-                    using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT public.\"create_competition\"(@name,@genre,@kol)", conn))
+                    using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT public.\"create_playlist\"(@id,@name)", conn))
                     {
-                        cmd.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = title;
-                        cmd.Parameters.Add("@genre", NpgsqlTypes.NpgsqlDbType.Varchar).Value = genre;
-                        cmd.Parameters.Add("@kol", NpgsqlTypes.NpgsqlDbType.Integer).Value = kol;
-                        
+                        cmd.Parameters.Add("@id", NpgsqlTypes.NpgsqlDbType.Integer).Value = user_id;
+                        cmd.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = name;
+
+
+
+
 
                         cmd.ExecuteNonQuery();
                     }
                     conn.Close();
                 }
-                MessageBox.Show("Подборка создана");
-              
+
+                // сохранить информацию о песне здесь
+                Close();
             }
             catch (Exception ex)
             {
@@ -65,10 +67,7 @@ namespace Ya_.VIEW
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            TitleTextBox.Clear();
-            GenreTextBox.Clear();
-            KolTextBox.Clear();
-            
+            Close();
 
         }
     }

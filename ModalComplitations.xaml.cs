@@ -13,116 +13,45 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Ya_.Classes_for_Bd;
 
-namespace Ya_.VIEW
+namespace Ya_
 {
     /// <summary>
-    /// Логика взаимодействия для Search.xaml
+    /// Логика взаимодействия для ModalComplitations.xaml
     /// </summary>
-    public partial class Search : UserControl
+    public partial class ModalComplitations : Window
     {
-        readonly int user_id = MainWindow.User_Id;
-        readonly int track_kol = 10;
+        int id;
+        int user_id = MainWindow.User_Id;
+        int track_kol = 100;
         int page_number = 1;
-        private readonly MediaPlayer mediaPlayer = new();
-
-
-        public Search()
+        public ModalComplitations(int id)
         {
             InitializeComponent();
-         
+            this.id = id;
+            LoadSongs();
         }
 
-        readonly List<Playlist> complitations = new();
+
+          private MediaPlayer mediaPlayer = new MediaPlayer();
+        private int currentTrackId;
+        List<Songss> songs = new List<Songss>();
+        List<Playlist> complitations = new List<Playlist>();
+        List<Complitation> complitation = new List<Complitation>();
         List<int> likedTracks = new List<int>();
-        readonly List<Songss> songs = new();
 
-
-       
-
-        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
-            {
-                page_number++;
-             /* 
-                LoadSongs(page_number);
-                UpdateTracks();
-                ShowRecentTracks();
-                LoadComplitations();
-                ShowComplitations();*/
-            }
-            else if (e.VerticalOffset == 0)
-            {
-                if (page_number > 1)
-                {
-               /*     page_number--;
-                    LoadSongs(page_number);
-                    UpdateTracks();
-                    ShowRecentTracks();
-                    LoadComplitations();
-                    ShowComplitations();*/
-                }
-            }
-        }
-
-        private void Searchr(object sender, TextChangedEventArgs e)
-        {
-            songs.Clear();
-            TextBox textBox = (TextBox)TextB.Template.FindName("sear", TextB);
-            string ss = textBox.Text;
-
-            if (ss.Length == 0)
-            {
-                Tracks.Children.Clear();
-            }
-            else
-            {
-                string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
-                NpgsqlConnection conn = new(connect);
-                conn.Open();
-
-                using (NpgsqlCommand cmd = new("SELECT * FROM public.\"searchr\"(@size, @number,@search_item)", conn))
-                {
-                    cmd.Parameters.AddWithValue("@size", track_kol);
-                    cmd.Parameters.AddWithValue("@number", page_number);
-                    cmd.Parameters.AddWithValue("@search_item", ss);
-
-                    NpgsqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        Songss s = new Songss
-                        {
-                            Id = reader.GetInt32(0),
-                            SongName = reader.GetString(1),
-                            GenreName = reader.GetString(2),
-                            SongWay = reader.GetString(3),
-                            SongImg = reader.GetString(4),
-                            Autor = reader.GetString(5)
-                        };
-
-                        songs.Add(s);
-                    }
-
-                    reader.Close();
-                }
-
-                conn.Close();
-                ShowTracks();
-            }
-        }
-
-        private void ShowTracks()
+        private void LoadSongs()
         {
             Tracks.Children.Clear();
-
+            songs.Clear();
+            likedTracks.Clear();
             string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
             NpgsqlConnection conn = new NpgsqlConnection(connect);
             conn.Open();
+
+
             using (NpgsqlCommand cmd = new NpgsqlCommand(" SELECT * FROM public.\"list_of_playlists\"(@id)", conn))
             {
                 cmd.Parameters.AddWithValue("@id", user_id);
@@ -143,7 +72,7 @@ namespace Ya_.VIEW
                 }
                 reader.Close();
             }
-            likedTracks.Clear();
+
 
             using (NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM get_liked_tracks(@user_id)", conn))
             {
@@ -162,11 +91,31 @@ namespace Ya_.VIEW
                 }
 
             }
-           
+
+            using (NpgsqlCommand cmd = new NpgsqlCommand(" SELECT * FROM public.\"songs_for_complitation\"(@id,@size, @number)", conn))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@size", track_kol);
+                cmd.Parameters.AddWithValue("@number", page_number);
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Songss s = new Songss
+                    {
+                        Id = reader.GetInt32(0),
+                        SongName = reader.GetString(1),
+                        GenreName = reader.GetString(2),
+                        SongWay = reader.GetString(3),
+                        SongImg = reader.GetString(4),
+                        Autor = reader.GetString(5)
+                    };
+                    songs.Add(s);
+                }
 
                 // Создаем список элементов MenuItem
                 List<MenuItem> list = new List<MenuItem>();
-                list.Clear();
                 for (int i = 0; i < complitations.Count; i++)
                 {
                     MenuItem menuItem = new MenuItem
@@ -194,17 +143,16 @@ namespace Ya_.VIEW
                 contextMenu.Resources.Add(typeof(DataGridColumnHeader), style);
 
 
-
                 for (int i = 0; i < songs.Count; i++)
                 {
                     Border br = new Border
                     {
                         CornerRadius = new CornerRadius(20),
-                        Width = 930,
+                        Width = 790,
                         Height = 60,
                         BorderBrush = new SolidColorBrush(Colors.White),
                         BorderThickness = new Thickness(1, 1, 1, 1),
-                        Margin = new Thickness(40, 1, 0, 1)
+                        Margin = new Thickness(0, 1, 0, 1)
                     };
                     Grid gr1 = new Grid();
                     ColumnDefinition c1 = new ColumnDefinition
@@ -213,7 +161,7 @@ namespace Ya_.VIEW
                     };
                     ColumnDefinition c2 = new ColumnDefinition
                     {
-                        Width = new GridLength(708)
+                        Width = new GridLength(570)
                     };
                     ColumnDefinition c3 = new ColumnDefinition
                     {
@@ -337,10 +285,29 @@ namespace Ya_.VIEW
                     br.Child = gr1;
                     Tracks.Children.Add(br);
                 }
-              
+                reader.Close();
+            }
             conn.Close();
         }
 
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
+            {
+                page_number++;
+                LoadSongs();
+              
+            }
+            else if (e.VerticalOffset == 0)
+            {
+                if (page_number > 1)
+                {
+                    page_number--;
+                    LoadSongs();
+                   
+                }
+            }
+        }
 
         static void AddToPlaylist(int user_id, int playliist_id, int track_id)
         {
@@ -358,6 +325,8 @@ namespace Ya_.VIEW
             conn.Close();
         }
         int tagg;
+
+
 
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -393,7 +362,7 @@ namespace Ya_.VIEW
             cmd.Parameters.AddWithValue("@user", user_id);
             cmd.Parameters.AddWithValue("@track", tag);
             cmd.ExecuteNonQuery();
-            ShowTracks();
+            LoadSongs();
            
         }
         //play song
@@ -415,9 +384,7 @@ namespace Ya_.VIEW
                             string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
                             NpgsqlConnection iConnect = new NpgsqlConnection(connect);
                             iConnect.Open();
-
-
-                          
+                           
                             using (NpgsqlConnection conn = new NpgsqlConnection(connect))
                             {
                                 conn.Open();
@@ -430,8 +397,6 @@ namespace Ya_.VIEW
                                     command.ExecuteNonQuery();
                                 }
                             }
-
-
                             using (NpgsqlConnection conn = new NpgsqlConnection(connect))
                             {
                                 conn.Open();
@@ -445,7 +410,7 @@ namespace Ya_.VIEW
                                     cmd.ExecuteNonQuery();
                                 }
                                 conn.Close();
-                              
+                               
                             }
                             ellipse.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png", UriKind.Relative)));
 
@@ -463,6 +428,6 @@ namespace Ya_.VIEW
             }
         }
 
-    }
-    }
 
+    }
+}

@@ -10,7 +10,6 @@ namespace Ya_.Classes_for_Bd
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte[] ImagePath { get; set; }
         public int kol { get; set; }
     }
 }

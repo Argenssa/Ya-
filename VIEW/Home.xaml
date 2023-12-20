@@ -7,10 +7,10 @@
              xmlns:local="clr-namespace:Ya_.VIEW"
              
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="936" Style="{StaticResource Page_Style}">
+             d:DesignHeight="800" d:DesignWidth="1036" Style="{StaticResource Page_Style}">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="22"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
@@ -32,7 +32,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Недавно прослушанные треки -->
-                <TextBlock  Text="Недавно прослушанные треки" FontWeight="Bold" />
+                <TextBlock Margin="50 0 0 20"  Text="Недавно прослушанные треки" FontWeight="Bold" />
                 <StackPanel Grid.Row="1" MaxWidth="936">
 
                   
@@ -44,17 +44,22 @@
              
 
                 <!-- Рекомендации в виде плейлистов -->
-                <TextBlock Grid.Row="2" Text="Рекомендуем к прослушиванию" FontWeight="Bold" />
+                <TextBlock Margin="50 10 0 10" Grid.Row="2" Text="Рекомендуем к прослушиванию" FontWeight="Bold" />
 
-                <ListBox Grid.Row="3" MaxHeight="200" Background="Transparent">
-                    <!-- Здесь можно привязать данные о рекомендуемых плейлистах -->
-                </ListBox>
+                <StackPanel Grid.Row="3" Grid.Column="1" Margin="50 15 0 0">
+                  
+                        <WrapPanel Name="Complitatoins">
+
+                        </WrapPanel>
+
+                    
+                </StackPanel>
 
                 <!-- Все песни -->
-                <TextBlock Grid.Row="4" Text="Все песни" FontWeight="Bold" />
+                <TextBlock Margin="50 20 0 0" Grid.Row="4" Text="Все песни" FontWeight="Bold" />
 
-                <StackPanel Grid.Row="5" Grid.Column="1" Margin="0 50 0 0">
-                    <ScrollViewer MaxHeight="735" VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
+                <StackPanel Grid.Row="5" Grid.Column="1" Margin="0 20 0 0">
+                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
                         <Grid>
                             <WrapPanel Name="Tracks">
 

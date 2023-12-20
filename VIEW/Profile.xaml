@@ -16,9 +16,13 @@
             <WrapPanel Name="Playlistss">
 
             </WrapPanel>
-                <StackPanel>
-                    <Button Width="150" Height="175"  Content="+" FontSize="80"/> 
+                
+                    <StackPanel Height="300">
+                        <Label FontSize="80" Margin="20 0 0 0" HorizontalAlignment="Center" Foreground="White" MouseLeftButtonDown="OpemModal">+</Label>
+
+
                 </StackPanel>
+               
             </WrapPanel>
         </ScrollViewer>
 

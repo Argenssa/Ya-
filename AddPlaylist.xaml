@@ -1,0 +1,33 @@
+﻿<Window x:Class="Ya_.AddPlaylist"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ya_"
+        mc:Ignorable="d"
+        Title="AddPlaylist" Height="140" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid Background="#212422">
+
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+          
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" VerticalAlignment="Center" FontSize="14"  Foreground="White" Grid.Column="0" Content="Название:"/>
+        <TextBox Grid.Row="0" Foreground="White" Background="Transparent" FontSize="30"  Grid.Column="1" x:Name="IdTextBox"/>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Background="Transparent" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Foreground="White" x:Name="OkButton" Background="Transparent" Width="40" Height="40" Content="ОК" Margin="5" Click="OkButton_Click"/>
+            <Button Foreground="White" Background="Transparent" x:Name="CancelButton" Width="40" Height="40" Content="Отмена" Margin="5" Click="CancelButton_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

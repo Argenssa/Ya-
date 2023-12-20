@@ -2,7 +2,9 @@
 using SpotifyAPI.Web;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -110,13 +112,36 @@ namespace Ya_.VIEW
                     t1.VerticalAlignment = VerticalAlignment.Center;
                     grid.Children.Add(t1);
                     br.Tag = complitations[i].Id;
-                   
+                    br.PreviewMouseLeftButtonDown += Br_PreviewMouseLeftButtonDown;
                     Grid.SetRow(t1, 1);
                 }
                 reader.Close();
             }
             conn.Close();
         }
-       
+        private void Br_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Border border = (Border)sender;
+            int tag = (int)border.Tag;
+            ModalPlaylist modal = new ModalPlaylist(tag);
+             // Изменено здесь
+            modal.ShowDialog();
+        }
+
+        private void Modal_Closing(object? sender, CancelEventArgs e) // Изменено здесь
+        {
+            LoadComplitations();
+        }
+
+
+        private void OpemModal(object sender, MouseButtonEventArgs e)
+        {
+            AddPlaylist add = new AddPlaylist();
+            add.Closing += Modal_Closing;
+            add.Closing += Modal_Closing;
+            add.ShowDialog();
+          
+        }
+
     }
 }

@@ -364,25 +364,28 @@ namespace Ya_.VIEW
         //play song
         private void Img_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            System.Windows.Controls.Image img = sender as System.Windows.Controls.Image;
-            int index = (int)img.Tag;
+            Ellipse ellipse = sender as Ellipse;
+            int index = (int)ellipse.Tag;
 
-            if (((BitmapImage)img.Source).UriSource.OriginalString == "Icons/icons8-play-30.png")
+            if (ellipse.Fill is ImageBrush imgBrush && imgBrush.ImageSource is BitmapImage bitmapImage)
             {
-                for (int i = 0; i < songs.Count; i++)
-                    if (index == songs[i].Id)
-                    {
-                        mediaPlayer.Open(new Uri(songs[i].SongWay));
-                        mediaPlayer.Play();
-                        img.Source = new BitmapImage(new Uri("Icons/icons8-pause-button-30.png", UriKind.Relative));
-                        break;
-                    }
-            }
-            else
-            {
-                mediaPlayer.Pause();
+                if (bitmapImage.UriSource.OriginalString == "C:\\coursProj4sem\\Ya!\\Icons\\icons8-play-30.png")
+                {
+                    for (int i = 0; i < songs.Count; i++)
+                        if (index == songs[i].Id)
+                        {
+                            mediaPlayer.Open(new Uri(songs[i].SongWay));
+                            mediaPlayer.Play();
+                            ellipse.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png", UriKind.Relative)));
+                            break;
+                        }
+                }
+                else
+                {
+                    mediaPlayer.Pause();
 
-                img.Source = new BitmapImage(new Uri("Icons/icons8-play-30.png", UriKind.Relative));
+                    ellipse.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-play-30.png", UriKind.Relative)));
+                }
             }
         }
         int tagg;

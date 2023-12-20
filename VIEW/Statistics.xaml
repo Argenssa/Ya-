@@ -37,27 +37,26 @@
         <!-- Общая статистика -->
         <TextBlock Text="Общая статистика" FontWeight="Bold" />
 
-            <TextBlock Grid.Row="1" Text="Количество зарегистрированных пользователей:" />
-            <TextBlock Grid.Row="2" Text="Общее количество прослушиваний за период:" />
+            <TextBlock x:Name="t1" Grid.Row="1" Text="Количество зарегистрированных пользователей:" />
+            <TextBlock x:Name="t2" Grid.Row="2" Text="Общее количество прослушиваний:" />
 
         <!-- Популярность треков -->
         <TextBlock Grid.Row="3" Text="Популярность треков" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="4" Text="Топ-проигрываемых треков за период:" />
-        <TextBlock Grid.Row="5" Text="Топ-лайкнутых треков за период:" />
-        <TextBlock Grid.Row="6" Text="Топ-треков по количеству добавлений в плейлисты:" />
+        <TextBlock x:Name="t3" Grid.Row="4" Text="Самый прослушиваемый трек:" />
+        <TextBlock x:Name="t4" Grid.Row="5" Text="Самый лайкнутый трек:" />
+        <TextBlock x:Name="t5" Grid.Row="6" Text="Cамый популярный по количеству добавлений в плейлисты:" />
 
         <!-- Активность пользователей -->
         <TextBlock Grid.Row="7" Text="Активность пользователей" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="8" Text="Топ-активных пользователей по прослушиваниям:" />
-        <TextBlock Grid.Row="9" Text="Топ-активных пользователей по лайкам и комментариям:" />
+        <TextBlock x:Name="t6" Grid.Row="8" Text="Топ-активных пользователей по лайкам и комментариям:" />
      
 
         <!-- Содержимое -->
-        <TextBlock Grid.Row="10" Text="Содержимое" FontWeight="Bold" />
+        <TextBlock Grid.Row="9" Text="Содержимое" FontWeight="Bold" />
 
-        <TextBlock Grid.Row="11" Text="Общее количество треков:" />
+        <TextBlock x:Name="t7" Grid.Row="10" Text="Общее количество треков:" />
        
         </Grid>
     </Grid>

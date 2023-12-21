@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ya_.AddPlaylist" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAgAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>AddPlaylist.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.AdminPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>AdminPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.App" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.Classes_for_Bd.Complitation" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes_for_Bd\Complitation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.Classes_for_Bd.Playlist" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes_for_Bd\Playlist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.Classes_for_Bd.Songss" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAgCAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAAAI=</HashCode>
+      <FileName>Classes_for_Bd\Songs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.Classes_for_Bd.Users" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAIAAAA=</HashCode>
+      <FileName>Classes_for_Bd\Users.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.MODEL.PageModel" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MODEL\PageModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.UTILITIES.Btn" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UTILITIES\Btn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.UTILITIES.RelayCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UTILITIES\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.UTILITIES.ViewModelBase">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UTILITIES\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ya_.VIEW.ComplitationManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEW\ComplitationManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.DelWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEW\DelWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.Home" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQQBEhAAAAggQEAAIAAkAAAgiAAABAgAAAiQAECMA=</HashCode>
+      <FileName>VIEW\Home.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.Profile" BaseTypeListCollapsed="true">
+    <Position X="4.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEgAAAAAAAAAAAAAEAAAAABIAAAAAAAAAAACAA=</HashCode>
+      <FileName>VIEW\Profile.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.Search" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQABEhAAAAAAQEAAIACgAAAgAAAABAAAAgAAAEAEA=</HashCode>
+      <FileName>VIEW\Search.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.SongManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAgAQAAAAAAAAAAAAAAABAAAAAAAIAgAAAAAAAAAA=</HashCode>
+      <FileName>VIEW\SongManager.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.Songs" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQQBEhAAAAAAQEAAIAAgAAAgAAAABAgAAAAAAEAEA=</HashCode>
+      <FileName>VIEW\Songs.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEW.Statistics" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEW\Statistics.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.AdminNavigationVM">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAABAAEAAEAAIAAAAAAIAAAAAACQAAAAQg=</HashCode>
+      <FileName>VIEWMODEL\AdminNavigationVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.ComplitationVM" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\ComplitationVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.DelWindowVM" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\DelWindowVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.HomeVM">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\HomeVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.NavigationVM">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABCAAAAgCACAAEEAAAAAAQAAAAAABAAAAAgAAA=</HashCode>
+      <FileName>VIEWMODEL\NavigationVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.ProfileVM" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\ProfileVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.SearchVM" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\SearchVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.SongManagerVM" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\SongManagerVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.SongsVM" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\SongsVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ya_.VIEWMODEL.StatisticsVM" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VIEWMODEL\StatisticsVM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

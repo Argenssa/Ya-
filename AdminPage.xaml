@@ -42,6 +42,12 @@
                             <TextBlock Text="Complitation Manager" Style="{StaticResource Text_Style}"/>
                         </Grid>
                     </Memu:Btn>
+                    <Memu:Btn Style="{StaticResource BtnStyle}" Command="{Binding DelSongCommand}" >
+                        <Grid>
+                            <Image Source="/Images/icons8-music-heart-50.png" Style="{StaticResource Image_Style}" />
+                            <TextBlock Text="Delete song" Style="{StaticResource Text_Style}"/>
+                        </Grid>
+                    </Memu:Btn>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">

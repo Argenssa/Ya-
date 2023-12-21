@@ -34,27 +34,36 @@ namespace Ya_.VIEW
             {
                 string title = TitleTextBox.Text;
                 string genre = GenreTextBox.Text;
-                int kol = Convert.ToInt32(KolTextBox.Text);
 
+                int kol = Convert.ToInt32(KolTextBox.Text);
 
                 string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
                 NpgsqlConnection iConnect = new NpgsqlConnection(connect);
                 iConnect.Open();
                 using (NpgsqlConnection conn = new NpgsqlConnection(connect))
                 {
-                    conn.Open();
-                    using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT public.\"create_competition\"(@name,@genre,@kol)", conn))
-                    {
-                        cmd.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = title;
-                        cmd.Parameters.Add("@genre", NpgsqlTypes.NpgsqlDbType.Varchar).Value = genre;
-                        cmd.Parameters.Add("@kol", NpgsqlTypes.NpgsqlDbType.Integer).Value = kol;
+                   
                         
+                        if (title == string.Empty || genre == string.Empty || kol == 0)
+                        {
+                            throw new Exception("Введеите данные коректно");
+                        }
+                        conn.Open();
+                        using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT public.\"create_competition\"(@name,@genre,@kol)", conn))
+                        {
+                            cmd.Parameters.Add("@name", NpgsqlTypes.NpgsqlDbType.Varchar).Value = title;
+                            cmd.Parameters.Add("@genre", NpgsqlTypes.NpgsqlDbType.Varchar).Value = genre;
+                            cmd.Parameters.Add("@kol", NpgsqlTypes.NpgsqlDbType.Integer).Value = kol;
 
-                        cmd.ExecuteNonQuery();
+
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
                     }
-                    conn.Close();
-                }
-                MessageBox.Show("Подборка создана");
+                 
+
+                
+              
               
             }
             catch (Exception ex)

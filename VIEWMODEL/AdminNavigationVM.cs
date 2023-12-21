@@ -20,6 +20,7 @@ namespace Ya_.VIEWMODEL
 
        
         public ICommand StatisticsCommand { get; set; }
+        public ICommand DelSongCommand { get; set; }
         public ICommand SongManagerCommand { get; set; }
         public ICommand ComplitationManagerCommand { get; set; }
 
@@ -27,12 +28,14 @@ namespace Ya_.VIEWMODEL
         private void Statistics(object obj) => CurrentView = new StatisticsVM();
         private void SongManager(object obj) => CurrentView = new SongManagerVM();
         private void ComplitationManager(object obj) => CurrentView = new ComplitationVM();
+        private void DelWindow(object obj) => CurrentView = new DelWindowVM();
         public AdminNavigationVM()
         {
           
             StatisticsCommand = new RelayCommand(Statistics);
             SongManagerCommand = new RelayCommand(SongManager);
             ComplitationManagerCommand = new RelayCommand(ComplitationManager);
+            DelSongCommand = new RelayCommand(DelWindow);
             // Startup Page
             CurrentView = new StatisticsVM();
         }

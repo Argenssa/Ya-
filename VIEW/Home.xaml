@@ -23,16 +23,17 @@
         <Grid Background="Transparent" Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="210"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="240"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!-- Недавно прослушанные треки -->
-                <TextBlock Margin="50 0 0 20"  Text="Недавно прослушанные треки" FontWeight="Bold" />
+                <TextBlock Text="Недавно прослушанные треки" Margin="50 0 0 0" FontWeight="Bold" />
                 <StackPanel Grid.Row="1" MaxWidth="936">
 
                   
@@ -44,9 +45,9 @@
              
 
                 <!-- Рекомендации в виде плейлистов -->
-                <TextBlock Margin="50 10 0 10" Grid.Row="2" Text="Рекомендуем к прослушиванию" FontWeight="Bold" />
+                <TextBlock Grid.Row="2" Text="Рекомендуем к прослушиванию" Margin="50 0 0 0" FontWeight="Bold" />
 
-                <StackPanel Grid.Row="3" Grid.Column="1" Margin="50 15 0 0">
+                <StackPanel Grid.Row="3" Margin="50 0 0 0" Grid.Column="1">
                   
                         <WrapPanel Name="Complitatoins">
 
@@ -56,20 +57,38 @@
                 </StackPanel>
 
                 <!-- Все песни -->
-                <TextBlock Margin="50 20 0 0" Grid.Row="4" Text="Все песни" FontWeight="Bold" />
+                <TextBlock  Grid.Row="4" Margin="50 0 0 0" Text="Все песни" FontWeight="Bold" />
 
-                <StackPanel Grid.Row="5" Grid.Column="1" Margin="0 20 0 0">
-                    <ScrollViewer MaxHeight="500" VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
+                <StackPanel Grid.Row="5" Grid.Column="1">
+                    <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto" ScrollChanged="ScrollViewer_ScrollChanged">
                         <Grid>
                             <WrapPanel Name="Tracks">
 
                             </WrapPanel>
-                           
+
                         </Grid>
                     </ScrollViewer>
 
                 </StackPanel>
+                <Grid Grid.Row="6" Background="Black">
+                    <StackPanel Orientation="Horizontal"  Margin="0,0,0,16">            
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="name" Text="Название трека" FontSize="16" FontWeight="Bold" />
+                        <TextBlock x:Name="autor" Text="Автор трека" FontSize="16" />
+                    </StackPanel>
+                </StackPanel>
+
+                    <!-- Слайдер для отображения прогресса воспроизведения -->
+                    <Slider x:Name="slider" Margin="0,30,0,8"/>
+                    <!--   Maximum="{Binding ElementName=mediaPlayer, Path=NaturalDuration.TimeSpan.TotalSeconds}"
+            Value="{Binding ElementName=mediaPlayer, Path=Position.TotalSeconds}" /> -->
+
+                <!-- Кнопка паузы -->
+                    <Ellipse x:Name="playpause" MouseLeftButtonDown="PlayPause_Click" Fill="LightGray" HorizontalAlignment="Center" Width="50" Height="50" />
+
+                <!-- Остальные элементы плеера, такие как кнопки воспроизведения/остановки, громкость и т. д. -->
             </Grid>
+        </Grid>
         </Grid>
     </Grid>
 </UserControl>

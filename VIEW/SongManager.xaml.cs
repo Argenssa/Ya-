@@ -66,12 +66,16 @@ namespace Ya_.VIEW
 
 
             string genre = GenreTextBox.Text;
-
+        
             string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
             NpgsqlConnection iConnect = new NpgsqlConnection(connect);
             iConnect.Open();
             try
             {
+                if (title == string.Empty || artist == string.Empty || genre == string.Empty || artist_arr[0] == string.Empty)
+                {
+                    throw new Exception("Все поля должны быть заполнены");
+                }
                 using (NpgsqlConnection conn = new NpgsqlConnection(connect))
                 {
                     conn.Open();

@@ -31,5 +31,8 @@
         <view:ComplitationManager/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:DelWindowVM}">
+        <view:DelWindow/>
+    </DataTemplate>
 
 </ResourceDictionary>

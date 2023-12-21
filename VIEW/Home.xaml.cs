@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Ya_.Classes_for_Bd;
 
 
@@ -33,12 +34,14 @@ namespace Ya_.VIEW
         readonly int track_kol = 50;
         int page_number = 1;
         private readonly MediaPlayer mediaPlayer = new();
+      
         public Home()
         {
           
             LoadSongs(page_number);
             LoadRecentSongs(user_id);
             LoadComplitations();
+            
             InitializeComponent();
         }
        
@@ -114,7 +117,6 @@ namespace Ya_.VIEW
 
                 reader.Close();
             }
-            Debug.WriteLine(Recent_songs[0].SongName);
             conn.Close();
            
         }
@@ -484,6 +486,9 @@ namespace Ya_.VIEW
             ShowRecentTracks();
         }
         //play song
+        private TimeSpan pausePosition; // Поле для сохранения позиции воспроизведения при паузе
+        private DispatcherTimer sliderTimer;
+
         private void Img_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Ellipse ellipse = sender as Ellipse;
@@ -497,55 +502,81 @@ namespace Ya_.VIEW
                     {
                         if (index == songs[i].Id)
                         {
-                            mediaPlayer.Open(new Uri(songs[i].SongWay));
+                            if (mediaPlayer.Source != new Uri(songs[i].SongWay))
+                            {
+                                mediaPlayer.Open(new Uri(songs[i].SongWay));
+                            }
+
+                            mediaPlayer.Position = pausePosition; // Установка позиции воспроизведения
                             mediaPlayer.Play();
-                            string connect = string.Format("Server={0};Port={1};User Id={2};Password={3};Database={4};", "localhost", 5432, "postgres", "SuperSasha2101", "MusicService");
-                            NpgsqlConnection iConnect = new NpgsqlConnection(connect);
-                            iConnect.Open();
-                            using (NpgsqlConnection conn = new NpgsqlConnection(connect))
-                            {
-                                conn.Open();
-                                using (NpgsqlCommand command = new NpgsqlCommand("SELECT public.IncrementClickCount(@trackId)", conn))
-                                {
-                                    // Добавление параметра trackId
-                                    command.Parameters.AddWithValue("trackId", index); // Замените 123 на конкретное значение track_id
+                            name.Text = songs[i].SongName;
+                            autor.Text = songs[i].Autor;
 
-                                    // Выполнение команды
-                                    command.ExecuteNonQuery();
-                                }
-                            }
-                                using (NpgsqlConnection conn = new NpgsqlConnection(connect))
-                            {
-                                conn.Open();
-                                using (NpgsqlCommand cmd = new NpgsqlCommand("SELECT public.\"add_recent_song\"(@track_id,@song_id)", conn))
-                                {
-                                    cmd.Parameters.Add("@track_id", NpgsqlTypes.NpgsqlDbType.Integer).Value = index;
-                                    cmd.Parameters.Add("@song_id", NpgsqlTypes.NpgsqlDbType.Integer).Value = user_id;
-                                   
+                            // Остальной код...
+                            // Активация слайдера
 
+                            slider.Maximum = 180;
+                                slider.Value = mediaPlayer.Position.TotalSeconds;
+                            sliderTimer = new DispatcherTimer();
+                            sliderTimer.Interval = TimeSpan.FromSeconds(1); // Обновление каждую секунду
+                            sliderTimer.Tick += SliderTimer_Tick;
+                            sliderTimer.Start();
 
-                                    cmd.ExecuteNonQuery();
-                                }
-                                conn.Close();
-                                LoadRecentSongs(user_id);
-                                ShowRecentTracks();
-                            }
                             ellipse.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png", UriKind.Relative)));
-                          
+                            playpause.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png", UriKind.Relative)));
+
                             break;
-                           
                         }
                     }
-                    
                 }
                 else if (bitmapImage.UriSource.OriginalString == "C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png")
                 {
+                    pausePosition = mediaPlayer.Position; // Сохранение позиции воспроизведения
                     mediaPlayer.Pause();
                     ellipse.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-play-30.png", UriKind.Relative)));
+                    playpause.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-play-30.png", UriKind.Relative)));
                 }
             }
         }
 
+
+        private void SliderTimer_Tick(object sender, EventArgs e)
+        {
+            // Обновление значения слайдера
+            slider.Value = mediaPlayer.Position.TotalSeconds;
+
+            // Проверка, достиг ли слайдер конца песни
+            if (slider.Value >= slider.Maximum)
+            {
+                // Остановка плеера и сброс слайдера в начальное положение
+                mediaPlayer.Stop();
+                slider.Value = 0;
+                sliderTimer.Stop();
+            }
+        }
+
+        private void PlayPause_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (mediaPlayer.Source != null)
+            {
+                if (playpause.Fill is ImageBrush imgBrush && imgBrush.ImageSource is BitmapImage bitmapImage)
+                {
+                    if (bitmapImage.UriSource.OriginalString == "C:\\coursProj4sem\\Ya!\\Icons\\icons8-play-30.png")
+                    {
+                        {
+                            mediaPlayer.Play(); // Воспроизведение, если позиция - 0 или конец трека
+                            playpause.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-pause-button-30.png", UriKind.Relative)));
+                        }
+                    }
+                    else
+                    {
+                        mediaPlayer.Pause(); // Пауза, если трек играет
+                        playpause.Fill = new ImageBrush(new BitmapImage(new Uri("C:\\coursProj4sem\\Ya!\\Icons\\icons8-play-30.png", UriKind.Relative)));
+
+                    }
+                }
+            }
+        }
         private void Img3_MouseRightButtonDown2(object sender, MouseButtonEventArgs e)
         {
             Ellipse img = (Ellipse)sender;
@@ -891,7 +922,7 @@ namespace Ya_.VIEW
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
                 Width = 930,
-                MaxHeight = 250
+                MaxHeight = 200
             };
             UniformGrid stackPanel = new UniformGrid
             {
@@ -909,8 +940,8 @@ namespace Ya_.VIEW
                 {
 
                 Border br = new Border();
-                br.Width = 220;
-                br.Height = 220;
+                br.Width = 200;
+                br.Height = 200;
 
                 // Создание контрастного градиента
                 Random random = new Random();
@@ -935,18 +966,18 @@ namespace Ya_.VIEW
                     br.Child = grid;
                     RowDefinition c1 = new RowDefinition
                     {
-                        Height = new GridLength(180)
+                        Height = new GridLength(100)
                     };
                     RowDefinition c2 = new RowDefinition
                     {
-                        Height = new GridLength(40)
+                        Height = new GridLength(100)
                     };
                     grid.RowDefinitions.Add(c1);
                     grid.RowDefinitions.Add(c2);
                     Rectangle rect = new Rectangle
                     {
-                        Width = 200,
-                        Height = 200,
+                        Width = 150,
+                        Height = 150,
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
                     };
